@@ -1,5 +1,18 @@
+from typing import TypedDict
 
-import math
+class Neighbour(TypedDict):
+    origin: str
+    name: str
+    distance: int
+    heuristic: int
+    total_cost: int
+    text_value: str
+
+class City(TypedDict):
+    name: str
+    coords: tuple[float, float]
+    neighbours: list[Neighbour]
+    roads: list[tuple[str, int]]
 
 COORDS = {
     "Arad": (46.1866, 21.3123),
@@ -50,30 +63,67 @@ ROADS = {
 }
 
 H_BUCHAREST = {
-    'Arad': 366,
-    'Bucharest': 0,
-    'Craiova': 160,
-    'Drobeta': 242,
-    'Eforie': 161,
-    'Fagaras': 176,
-    'Giurgiu': 77,
-    'Hirsova': 151,
-    'Iasi': 226,
-    'Lugoj': 244,
-    'Mehadia': 241,
-    'Neamt': 234,
-    'Oradea': 380,
-    'Pitesti': 100,
-    'Rimnicu Vilcea': 193,
-    'Sibiu': 253,
-    'Timisoara': 329,
-    'Urziceni': 80,
-    'Vaslui': 199,
-    'Zerind': 374,
+    'Arad': 366, #
+    'Bucharest': 0, # 
+    'Craiova': 160, # 
+    'Drobeta': 242, # 
+    'Eforie': 161, # 
+    'Fagaras': 176, #
+    'Giurgiu': 77, #
+    'Hirsova': 151, #
+    'Iasi': 226, # 
+    'Lugoj': 244, #
+    'Mehadia': 241, #
+    'Neamt': 234, # 
+    'Oradea': 380, #
+    'Pitesti': 100, #
+    'Rimnicu Vilcea': 193, # 
+    'Sibiu': 253, # 
+    'Timisoara': 329, # 
+    'Urziceni': 80, # 
+    'Vaslui': 199, # 
+    'Zerind': 374, #
 }
 
-def get_neighbours(city: str) -> list:
-    neighbours = []
+def set_neighbours(city: str) -> list[Neighbour]:
+    neighbours: list[Neighbour] = []
+
     for dest, dist in ROADS[city]:
-        neighbours.append(f"{city} -> {dest} ({dist})")
+        neighbour_info: Neighbour = {
+            "origin": city,
+            "name": dest,
+            "distance": dist,
+            "heuristic": H_BUCHAREST[dest],
+            "total_cost": dist + H_BUCHAREST[dest],
+            "text_value": f"{city} -> {dest} = {dist}",
+        }
+        neighbours.append(neighbour_info)
     return neighbours
+
+
+
+CITIES: dict[str, City] = {
+    "Arad": {"name": "Arad", "coords": COORDS["Arad"], "neighbours": set_neighbours("Arad"), "roads": ROADS["Arad"]},
+    "Zerind": {"name": "Zerind", "coords": COORDS["Zerind"], "neighbours": set_neighbours("Zerind"), "roads": ROADS["Zerind"]},
+    "Oradea": {"name": "Oradea", "coords": COORDS["Oradea"], "neighbours": set_neighbours("Oradea"), "roads": ROADS["Oradea"]},
+    "Sibiu": {"name": "Sibiu", "coords": COORDS["Sibiu"], "neighbours": set_neighbours("Sibiu"), "roads": ROADS["Sibiu"]},
+    "Timisoara": {"name": "Timisoara", "coords": COORDS["Timisoara"], "neighbours": set_neighbours("Timisoara"), "roads": ROADS["Timisoara"]},
+    "Lugoj": {"name": "Lugoj", "coords": COORDS["Lugoj"], "neighbours": set_neighbours("Lugoj"), "roads": ROADS["Lugoj"]},
+    "Mehadia": {"name": "Mehadia", "coords": COORDS["Mehadia"], "neighbours": set_neighbours("Mehadia"), "roads": ROADS["Mehadia"]},
+    "Drobeta": {"name": "Drobeta", "coords": COORDS["Drobeta"], "neighbours": set_neighbours("Drobeta"), "roads": ROADS["Drobeta"]},
+    "Craiova": {"name": "Craiova", "coords": COORDS["Craiova"], "neighbours": set_neighbours("Craiova"), "roads": ROADS["Craiova"]},
+    "Rimnicu Vilcea": {"name": "Rimnicu Vilcea", "coords": COORDS["Rimnicu Vilcea"], "neighbours": set_neighbours("Rimnicu Vilcea"), "roads": ROADS["Rimnicu Vilcea"]},
+    "Fagaras": {"name": "Fagaras", "coords": COORDS["Fagaras"], "neighbours": set_neighbours("Fagaras"), "roads": ROADS["Fagaras"]},
+    "Pitesti": {"name": "Pitesti", "coords": COORDS["Pitesti"], "neighbours": set_neighbours("Pitesti"), "roads": ROADS["Pitesti"]},
+    "Bucharest": {"name": "Bucharest", "coords": COORDS["Bucharest"], "neighbours": set_neighbours("Bucharest"), "roads": ROADS["Bucharest"]},
+    "Giurgiu": {"name": "Giurgiu", "coords": COORDS["Giurgiu"], "neighbours": set_neighbours("Giurgiu"), "roads": ROADS["Giurgiu"]},
+    "Urziceni": {"name": "Urziceni", "coords": COORDS["Urziceni"], "neighbours": set_neighbours("Urziceni"), "roads": ROADS["Urziceni"]},
+    "Hirsova": {"name": "Hirsova", "coords": COORDS["Hirsova"], "neighbours": set_neighbours("Hirsova"), "roads": ROADS["Hirsova"]},
+    "Eforie": {"name": "Eforie", "coords": COORDS["Eforie"], "neighbours": set_neighbours("Eforie"), "roads": ROADS["Eforie"]},
+    "Vaslui": {"name": "Vaslui", "coords": COORDS["Vaslui"], "neighbours": set_neighbours("Vaslui"), "roads": ROADS["Vaslui"]},
+    "Iasi": {"name": "Iasi", "coords": COORDS["Iasi"], "neighbours": set_neighbours("Iasi"), "roads": ROADS["Iasi"]},
+    "Neamt": {"name": "Neamt", "coords": COORDS["Neamt"], "neighbours": set_neighbours("Neamt"), "roads": ROADS["Neamt"]},
+}
+
+
+

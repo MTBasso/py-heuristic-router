@@ -1,10 +1,30 @@
+from map import CITIES, H_BUCHAREST
 
-from map import ROADS, H_BUCHAREST, get_neighbours
+print(f"Quantidade de cidades no mapa: {len(CITIES)}")
+print(f"Quantidade de h(n) calculadas: {len(H_BUCHAREST)}")
 
-# print(f"quantidade de cidades no mapa: {len(ROADS)}")
-# print(f"quantidade de valores h(n): {len(H_BUCHAREST)} \n")
 
-# print(f"tipo roads: {type(ROADS)} \nROADS: {ROADS}\n")
-# print(f"tipo h_bucharest: {type(H_BUCHAREST)} \nH_BUCHAREST: {H_BUCHAREST}\n")
-# print(f"tipo vizinhos de Arad: {type(ROADS["Arad"])} \n")
-print(f"vizinhos de Arad: {get_neighbours("Arad")}")
+arad = CITIES["Arad"]
+
+print(f"\nVizinhos de Arad: {len(arad['neighbours'])}")
+for city in arad["neighbours"]:
+    print(f"    {city['name']}")
+
+
+print(f"\nPrimeira estrada que sai de Arad: {arad['neighbours'][0]['name']}")
+print(f"    Distância em km: {arad['neighbours'][0]['distance']}")
+
+
+print(f"\nEstradas que saem de Arad: ")
+for neighbour in arad["neighbours"]:
+    print(f"    {neighbour['text_value']} km")
+
+
+print(f"Numero de estradas de cada cidade:")w
+for city in CITIES.values():
+    print(f"    {city['name']}: {len(city['neighbours'])} estradas")
+
+print(f"\nh(Arad) = {H_BUCHAREST['Arad']} km em linha ate Bucareste")
+print(f"para cada vizinho de arad: custo da estrad e h(vizinho)")
+for city in arad["neighbours"]:
+    print(f"    {city['name']}: custo da estrada = {city['distance']} km, h({city['name']}) = {H_BUCHAREST[city['name']]} km")
