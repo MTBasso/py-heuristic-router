@@ -20,11 +20,11 @@ for neighbour in arad["neighbours"]:
     print(f"    {neighbour['text_value']} km")
 
 
-print(f"Numero de estradas de cada cidade:")w
+print(f"Numero de estradas de cada cidade:")
 for city in CITIES.values():
-    print(f"    {city['name']}: {len(city['neighbours'])} estradas")
+    print(f"    {city['name']:<15}: {len(city['neighbours'])} estradas")
 
 print(f"\nh(Arad) = {H_BUCHAREST['Arad']} km em linha ate Bucareste")
-print(f"para cada vizinho de arad: custo da estrad e h(vizinho)")
+print(f"\npara cada vizinho de arad: custo da estrad e h(vizinho)")
 for city in arad["neighbours"]:
-    print(f"    {city['name']}: custo da estrada = {city['distance']} km, h({city['name']}) = {H_BUCHAREST[city['name']]} km")
+    print(f"    {city['name']:<10}: custo da estrada = {city['distance']:>3} km, h({city['name']}) = {H_BUCHAREST[city['name']]:>3} km")
